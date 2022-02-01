@@ -76,7 +76,7 @@ userRouter
       .catch((err) => next(err));
   })
   .delete(cors.corsWithOptions, (req, res, next) => {
-    Users.remove({})
+    Users.findByIdAndRemove(req.params.id)
       .then(
         (resp) => {
           res.statusCode = 200;
