@@ -102,17 +102,15 @@ userRouter
       .then(
         (user) => {
           if (user != null) {
-            req.body.images = req.params.id;
+            req.body.user = req.params.id;
             user.images.push(req.body);
             user.save().then(
               (user) => {
-                Users.findById(user._id)
-                  .populate('users.images')
-                  .then((user) => {
-                    res.statusCode = 200;
-                    res.setHeader('Content-Type', 'application/json');
-                    res.json(user);
-                  });
+                Users.findById(user._id).then((user) => {
+                  res.statusCode = 200;
+                  res.setHeader('Content-Type', 'application/json');
+                  res.json(user);
+                });
               },
               (err) => next(err)
             );
